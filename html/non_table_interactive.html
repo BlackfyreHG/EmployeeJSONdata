@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v5.js"></script>
+        <link href="../css/formatt.css" rel="stylesheet">
+    </head>
+    
+    <body>
+        <h1>Employee Information (Non-Table Interactive) </h1>
+        <!--<script src="data_formatting.js"></script>--> 
+        
+        <script>
+            var employees = d3.json("https://blackfyrehg.github.io/EmployeeJSONdata/employee.json");
+ 
+            var enterData = function(employees)
+            {   
+                var generals = d3.select("body")
+                    .selectAll("div.general")
+                    .data(employees)
+                    .enter()
+                    .append("div")
+                        .attr("class","employee")
+                        .style("width","300px")
+                        .append("div")
+                            .attr("class","general")
+                    .on("click",function(employee)
+                    {
+                        console.log(this);
+                        d3.select(this);
+                    })
+                
+                d3.selectAll("div.employee")
+                    .append("div")
+                        .attr("class","detail");
+                
+                var details = d3.selectAll("div.detail");
+                makeDetails(details);
+                            
+                
+                generals.append("span")
+                    .attr("class","eName")
+                    .text(function(employee)
+                    {
+                        return employee.firstName+employee.lastName;
+                    });
+                
+                generals.append("img")
+                    .attr("src",function(employee)
+                    {
+                        return employee.photo;
+                    })
+                
+                d3.selectAll("div.employee").on("click",function(employee)
+                {
+                    var div = d3.select(this).select("  div.detail");
+                    writeDetails(div); d3.select(this).style("width","605px")
+                    ;
+                    var current_h = parseInt(d3.select(this).style("height"));
+                    var detail_height = parseInt(div.style("height"));
+                   
+                    if(detail_height>current_h)
+                    {
+                        var adjust = detail_height-current_h;
+                    }
+                    else
+                    {
+                        var adjust = 0;
+                    }
+                       d3.select(this).style("height",current_h+adjust);
+                })      
+            }
+                
+            var writeDetails = function(detail)
+            {
+
+                detail.select("span.title")
+                    .text(function(employee)
+                    {
+                        return employee.title; 
+                    });
+                detail.select("span.department")
+                    .text(function(employee)
+                    {
+                        return employee.unit; 
+                    });
+                detail.select("span.email")
+                    .text(function(employee)
+                    {
+                        return employee.email; 
+                    });
+                detail.select("p.bio")
+                    .text(function(employee)
+                    {
+                        return employee.bio; 
+                    });  
+            }
+            
+            var makeDetails = function(details)
+            {
+                details.append("span")
+                    .attr("class","title")
+                details.append("span")
+                    .attr("class","department")
+                details.append("span")
+                    .attr("class","email")
+                details.append("p")
+                    .attr("class","bio")
+            }
+            
+            employees.then(enterData);
+            
+        </script>
+    </body>
+</html>

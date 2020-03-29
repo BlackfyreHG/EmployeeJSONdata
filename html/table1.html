@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v5.js"></script>
+        <style>
+            body{
+                background-color:black;
+                font-family:fantasy;
+            }
+            table {
+                text-align:center;
+                background-color:white;
+            }
+            tr{
+                border-style:solid;
+                border-color:blue;
+            }
+            td{
+                border-style:solid;
+                border-color:gold;
+            }
+            th{
+                border-style:solid;
+                border-color:gold;
+            }
+            img{
+                height:100px;
+                width:100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Employee Information (Tabled) </h1>
+        <!--<script src="data_formatting.js"></script>--> 
+        <table id=empInfo>
+            <thead>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Unit</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th>Phone</th>
+            </thead>
+            
+            <tbody></tbody>
+        </table>
+        
+        <script>
+            var employees = d3.json("https://blackfyrehg.github.io/EmployeeJSONdata/employee.json");
+
+             /*var employees = d3.json("../employee1.json");*/
+            
+            var intoTable = function(employees)
+            {
+                /*console.log("The Info",employees);
+                d3.select("body")
+                    .append("table")
+                        .append("tr")
+                            .append("td")
+                                .text(first);*/
+                
+                var rows = d3.select("#empInfo tbody")
+                  .selectAll("tr")
+                  .data(employees)
+                  .enter()
+                    .append("tr")
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.firstName;
+                    });
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.lastName;
+                    });
+                rows.append("td")
+                    .append("img")
+                        .attr("src",(function(employee)
+                        {
+                            return employee.photo;
+                        }));
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.title;
+                    });
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.unit;
+                    });
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.email;
+                    });
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.bio;
+                    });
+                rows.append("td")
+                    .text(function(employee)
+                    {
+                        return employee.phone;
+                    });
+            };
+                
+            employees.then(intoTable);
+        </script>
+    </body>
+
+</html>

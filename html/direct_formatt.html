@@ -1,0 +1,135 @@
+<html>
+    <head>
+         <script src="https://d3js.org/d3.v5.js"></script>
+        <link type= "text/css" src = "../css/formatt.css">
+        
+        <style>
+            body{
+                text-align:center;
+                --background-color:blue;
+            }
+            div {
+                display:inline-block;
+                font-size:16;
+            }
+            div.employee{
+                width:605px;
+                border:solid;
+                border-radius:25px;;
+                box-shadow: 10px 10px grey;
+                margin:10px;
+
+                --background-color: aqua;
+            }
+
+            div.general{
+                float:left;
+                width:175px;
+                margin:8px;
+                text-align:left;
+            }
+            span.eName{
+                display:block;
+                float:left;
+                width:100%;
+                font-weight:bold;
+                font-size:18;
+            }
+            img {
+                display:block;
+                float:left;
+                width:100%;
+            }
+
+            div.detail{
+                float:right;
+                width:400px;
+                text-align:left;
+            }
+            span.title{
+                display:block;
+                float:left;
+                width:100%;
+                font-weight:bold;
+                font-size:18;
+            }
+            span.department{
+                display:block;
+                float:left;
+                width:100%;
+            }
+        </style>
+        
+    </head>
+    
+    <body>
+        <h1>Employee Information (Non-Table) </h1>
+        <!--<script src="data_formatting.js"></script>--> 
+        
+        <script>
+            var employees = d3.json("https://blackfyrehg.github.io/EmployeeJSONdata/employee.json");
+
+            
+            var enterData = function(employees)
+            {
+                var generals = d3.select("body")
+                  .selectAll("div.general")
+                  .data(employees)
+                  .enter()
+                    .append("div")
+                        .attr("class","employee")
+                        .append("div")
+                            .attr("class","general")
+                
+                d3.selectAll("div.employee")
+                    .append("div")
+                        .attr("class","detail");
+                
+                var details = d3.selectAll("div.detail")
+                            
+                
+                generals.append("span")
+                    .attr("class","eName")
+                    .text(function(employee)
+                    {
+                        return employee.firstName+employee.lastName;
+                    });
+                
+                generals.append("img")
+                    .attr("src",function(employee)
+                    {
+                        return employee.photo;
+                    });
+                
+                details.append("span")
+                    .attr("class","title")
+                    .text(function(employee)
+                    {
+                        return employee.title; 
+                    });
+                details.append("span")
+                    .attr("class","department")
+                    .text(function(employee)
+                    {
+                        return employee.unit; 
+                    });
+                details.append("span")
+                    .attr("class","email")
+                    .text(function(employee)
+                    {
+                        return employee.email; 
+                    });
+                details.append("p")
+                    .attr("class","bio")
+                    .text(function(employee)
+                    {
+                        return employee.bio; 
+                    });
+                
+            }
+            employees.then(enterData);
+        </script>
+        
+    </body>
+
+</html>

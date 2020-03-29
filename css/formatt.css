@@ -1,0 +1,56 @@
+body{
+    text-align:center;
+    --background-color:blue;
+}
+div {
+    display:inline-block;
+    font-size:16
+}
+div.employee{
+    display:block;
+    float:center;
+    width:605px;
+    height:250px;
+    border:solid;
+    border-radius:25px;;
+    box-shadow: 10px 10px grey;
+    margin:20px;
+}
+
+div.general{
+    float:left;
+    width:175px;
+    height:100%;
+    margin:8px;
+    text-align:left;
+}
+span.eName{
+    display:block;
+    float:left;
+    width:100%;
+    font-weight:bold;
+    font-size:18;
+}
+img {
+    display:block;
+    float:left;
+    width:100%;
+}
+
+div.detail{
+    float:right;
+    width:400px;
+    text-align:left;
+}
+span.title{
+    display:block;
+    float:left;
+    width:100%;
+    font-weight:bold;
+    font-size:18;
+}
+span.department{
+    display:block;
+    float:left;
+    width:100%;
+}
